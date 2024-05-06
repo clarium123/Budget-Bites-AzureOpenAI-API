@@ -12,7 +12,7 @@ namespace LLM_API.Service
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                .AddJsonFile("config.json", optional: false, reloadOnChange: true);
 
             _config = config.Build();
         }
