@@ -3,18 +3,17 @@ internal class Program
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        //var AzureAIAPIAllowSpecificOrigins = "_azureAIAPIAllowSpecificOrigins";
+        var AzureAIAPIAllowSpecificOrigins = "_azureAIAPIAllowSpecificOrigins";
 
         builder.Services.AddControllers();
 
         builder.Services.AddCors(options =>
         {
-            options.AddPolicy("AllowAnyOrigin", builder => { builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
-            //options.AddPolicy(name: AzureAIAPIAllowSpecificOrigins,
-            //                  policy =>
-            //                  {
-            //                      policy.WithOrigins("http://localhost:4200");
-            //                  });
+            options.AddPolicy(name: AzureAIAPIAllowSpecificOrigins,
+                              policy =>
+                              {
+                                  policy.WithOrigins("https://budget-bites.azurewebsites.net/");
+                              });
         });
 
         var app = builder.Build();
@@ -25,7 +24,7 @@ internal class Program
 
         app.MapControllers();
 
-        app.UseCors("AllowAnyOrigin");
+        app.UseCors(AzureAIAPIAllowSpecificOrigins);
 
         app.Run();
 
